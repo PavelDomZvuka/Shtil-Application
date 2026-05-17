@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Shtil — От шторма к штили</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Ambient Background -->
+        <div class="ambient-bg">
+            <div class="ambient-orb orb-1"></div>
+            <div class="ambient-orb orb-2"></div>
+            <div class="ambient-orb orb-3"></div>
+            <div class="ambient-orb orb-4"></div>
+            <div class="noise-overlay"></div>
+        </div>
+
+        <!-- Toast Container -->
+        <div class="toast-container" id="toast-container"></div>
+
+        <!-- Main Screens -->
+        <main id="screens">
+            <!-- HOME SCREEN -->
+            <section id="screen-home" class="screen active">
+                <div class="home-header">
+                    <div class="greeting glow-text" id="greeting">Добрый вечер</div>
+                    <div class="sub-greeting">Ваш остров ждет</div>
+                </div>
+                
+                <div class="island-container">
+                    <div class="island-scene-v2" id="island-scene">
+                        <div class="sky">
+                            <div class="cloud cloud-1"></div>
+                            <div class="cloud cloud-2"></div>
+                            <div class="cloud cloud-3"></div>
+                            <div class="sun"></div>
+                        </div>
+                        <div class="mountains">
+                            <div class="mountain m1"></div>
+                            <div class="mountain m2"></div>
+                            <div class="mountain m3"></div>
+                        </div>
+                        <div class="lake">
+                            <div class="ripple r1"></div>
+                            <div class="ripple r2"></div>
+                        </div>
+                        <div class="cabin">
+                            <div class="cabin-roof"></div>
+                            <div class="cabin-body"></div>
+                            <div class="cabin-window"></div>
+                        </div>
+                        <div class="trees">
+                            <div class="tree t1"></div>
+                            <div class="tree t2"></div>
+                            <div class="tree t3"></div>
+                            <div class="tree t4"></div>
+                        </div>
+                        <div class="fireflies">
+                            <div class="ff ff1"></div>
+                            <div class="ff ff2"></div>
+                            <div class="ff ff3"></div>
+                            <div class="ff ff4"></div>
+                            <div class="ff ff5"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-recommendation glass-panel" id="ai-recommendation">
+                    <div class="rec-label">Рекомендация дня</div>
+                    <div class="rec-title" id="rec-title">Сканирование тела для сна</div>
+                    <div class="rec-desc" id="rec-desc">Подготовьтесь к глубокому сну</div>
+                    <button class="rec-btn volumetric-btn" onclick="app.playRecommended()">Начать</button>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="qa-btn" onclick="app.navigate('breathing')">
+                        <div class="qa-icon breathe-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                        <span>Дыхание</span>
+                    </button>
+                    <button class="qa-btn" onclick="app.navigate('sleep')">
+                        <div class="qa-icon sleep-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
+                        <span>Сон</span>
+                    </button>
+                    <button class="qa-btn" onclick="app.playByType('focus')">
+                        <div class="qa-icon focus-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-6.93-13.07l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4"/></svg></div>
+                        <span>Фокус</span>
+                    </button>
+                    <button class="qa-btn" onclick="app.playByType('body_scan')">
+                        <div class="qa-icon body-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 014 4c0 1.95-1.4 3.58-3.25 3.93M8 6a4 4 0 014-4"/><path d="M12 10v4m0 0l-3 6m3-6l3 6"/><circle cx="12" cy="7" r="1"/></svg></div>
+                        <span>Тело</span>
+                    </button>
+                </div>
+
+                <button class="sos-btn" onclick="app.sosMode()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <span>SOS</span>
+                </button>
+
+                <div class="meditation-carousel">
+                    <h3 class="section-title">Медитации</h3>
+                    <div class="carousel" id="home-carousel"></div>
+                </div>
+            </section>
+
+            <!-- MAP SCREEN (Карта мира) -->
+            <section id="screen-map" class="screen">
+                <div class="map-header">
+                    <h2 class="map-title glow-text">Карта мира</h2>
+                    <div class="map-progress-badge glass-panel" id="map-progress">0 / 5 локаций</div>
+                </div>
+                <div class="map-container-v2" id="map-container"></div>
+            </section>
+
+            <!-- SLEEP SCREEN -->
+            <section id="screen-sleep" class="screen">
+                <div class="sleep-header">
+                    <h2 class="sleep-title glow-text">Сон</h2>
+                    <p class="sleep-subtitle">Сказки и медитации для глубокого сна</p>
+                </div>
+                <div class="sleep-stories" id="sleep-stories"></div>
+            </section>
+
+            <!-- PROFILE SCREEN -->
+            <section id="screen-profile" class="screen">
+                <div class="profile-header">
+                    <h2 class="profile-title glow-text">Профиль</h2>
+                </div>
+                <div class="profile-stats glass-panel" id="profile-stats"></div>
+                <div class="profile-streak glass-panel" id="profile-streak"></div>
+                <div class="profile-achievements" id="profile-achievements"></div>
+                <div class="profile-settings glass-panel" id="profile-settings"></div>
+            </section>
+
+            <!-- PLAYER SCREEN -->
+            <section id="screen-player" class="screen">
+                <div class="player-bg" id="player-bg"></div>
+                <div class="player-overlay">
+                    <button class="back-btn glass-circle" onclick="app.goBack()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    </button>
+                    <div class="player-content">
+                        <div class="player-title" id="player-title">Медитация</div>
+                        <div class="player-subtitle" id="player-subtitle">Описание</div>
+                        <div class="breathing-circle" id="breathing-circle">
+                            <div class="circle-outer"></div>
+                            <div class="circle-inner"></div>
+                            <div class="circle-text" id="circle-text">Вдох</div>
+                        </div>
+                        <div class="timer-display glow-text" id="timer-display">05:00</div>
+                        <div class="player-controls">
+                            <button class="ctrl-btn glass-circle" onclick="player.skip(-15)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg></button>
+                            <button class="ctrl-btn play-btn glass-circle" id="play-btn" onclick="player.toggle()">
+                                <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            </button>
+                            <button class="ctrl-btn glass-circle" onclick="player.skip(15)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg></button>
+                        </div>
+                        <div class="progress-bar-v2" onclick="player.seek(event)"><div class="progress-fill-v2" id="progress-fill"></div></div>
+                        <button class="complete-btn volumetric-btn" onclick="player.complete()">Завершить</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BREATHING SCREEN -->
+            <section id="screen-breathing" class="screen">
+                <div class="breathing-bg">
+                    <button class="back-btn glass-circle" onclick="app.goBack()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    </button>
+                    <h2 class="breathing-title glow-text">Дыхание 4-7-8</h2>
+                    <div class="breathing-visual" id="breathing-visual" data-phase="idle">
+                        <div class="breath-orb"></div>
+                        <div class="breath-orb-inner"></div>
+                        <div class="breath-rings">
+                            <div class="breath-ring r1"></div>
+                            <div class="breath-ring r2"></div>
+                            <div class="breath-ring r3"></div>
+                        </div>
+                    </div>
+                    <div class="breathing-info glass-panel">
+                        <div class="breath-phase" id="breath-phase">Готовы начать?</div>
+                        <div class="breath-counter" id="breath-counter">—</div>
+                        <div class="breathing-instruction" id="breathing-instruction">Нажмите кнопку ниже, чтобы начать практику дыхания 4-7-8</div>
+                    </div>
+                    <button class="breathing-toggle volumetric-btn" id="breathing-toggle" onclick="breathing.toggle()">Начать</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- TAB BAR -->
+        <nav id="tab-bar" class="tab-bar">
+            <button class="tab-btn active" data-screen="home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+            </button>
+            <button class="tab-btn" data-screen="map">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 21 18 21 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                <span>Map</span>
+            </button>
+            <button class="tab-btn" data-screen="sleep">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                <span>Sleep</span>
+            </button>
+            <button class="tab-btn" data-screen="profile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Profile</span>
+            </button>
+        </nav>
+
+        <!-- SUB-MAP MODAL -->
+        <div class="sub-map-modal" id="sub-map-modal">
+            <div class="sub-map-overlay" onclick="app.closeSubMap()"></div>
+            <div class="sub-map-content glass-panel">
+                <button class="sub-map-close glass-circle" onclick="app.closeSubMap()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+                <div class="sub-map-icon" id="sub-map-icon"></div>
+                <div class="sub-map-name" id="sub-map-name"></div>
+                <div class="sub-map-desc" id="sub-map-desc"></div>
+                <div class="sub-map-visualization" id="sub-map-visualization"></div>
+                <div class="sub-map-stats" id="sub-map-stats"></div>
+                <button class="sub-map-cta volumetric-btn" id="sub-map-cta" onclick="app.startLocationMeditation()">Практиковать здесь</button>
+            </div>
+        </div>
+
+        <!-- GLOBAL REVEAL OVERLAY -->
+        <div class="global-reveal-overlay" id="global-reveal-overlay">
+            <div class="global-reveal-bg"></div>
+            <div class="global-reveal-content">
+                <div class="reveal-fragments">
+                    <div class="reveal-fragment" data-fragment="1"></div>
+                    <div class="reveal-fragment" data-fragment="2"></div>
+                    <div class="reveal-fragment" data-fragment="3"></div>
+                    <div class="reveal-fragment" data-fragment="4"></div>
+                    <div class="reveal-fragment" data-fragment="5"></div>
+                </div>
+                <div class="reveal-title glow-text">Общая Карта Открыта!</div>
+                <div class="reveal-subtitle">Все регионы исследованы</div>
+                <div class="reveal-medal">🏆</div>
+                <div class="reveal-confetti">
+                    <div class="confetti c1"></div><div class="confetti c2"></div><div class="confetti c3"></div>
+                    <div class="confetti c4"></div><div class="confetti c5"></div><div class="confetti c6"></div>
+                    <div class="confetti c7"></div><div class="confetti c8"></div><div class="confetti c9"></div>
+                    <div class="confetti c10"></div><div class="confetti c11"></div><div class="confetti c12"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
